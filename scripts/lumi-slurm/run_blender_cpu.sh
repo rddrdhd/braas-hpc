@@ -44,6 +44,7 @@ mkdir -p ${IN_DIR}
 mkdir -p ${OUT_DIR}
 mkdir -p ${CACHE_DIR}
 
+module load LUMI/24.03 partition/D OpenGL/24.03-cpeGNU-24.03
 ###############################################
 # !uses a hard-coded blender version! 
-~/blender/blender --factory-startup --enable-autoexec -noaudio --background ${IN_DIR}/${BLEND_FILE} -E CYCLES -P ~/braas-hpc/scripts/lumi-slurm/use_gpu.py --render-output ${OUT_DIR}/###### ${FRAME_CMD}  >> ${LOG} 2>> ${ERR}
+~/blender/blender --factory-startup --enable-autoexec -noaudio --background ${IN_DIR}/${BLEND_FILE} -E CYCLES --render-output ${OUT_DIR}/###### ${FRAME_CMD}  >> ${LOG} 2>> ${ERR}
