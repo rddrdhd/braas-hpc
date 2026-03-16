@@ -201,28 +201,6 @@ account_types_items = [
 ##################################################################
 def GetBlenderClusterVersion():
     return (str(bpy.app.version_string)).replace(' ', '_')
-
-def check_ssh_alias(alias_name):
-    """Checks if ~/.ssh/config exists and if it has the specified alias_name."""
-    ssh_config_path = os.path.expanduser("~/.ssh/config")
-    
-    if not os.path.isfile(ssh_config_path):
-        return False
-        
-    try:
-        with open(ssh_config_path, 'r', encoding='utf-8') as f:
-            for line in f:
-                line = line.strip()
-                # Find host, like "host lumi"
-                if line.lower().startswith("host "):
-                    # get all the aliases
-                    hosts = line[5:].split()
-                    if alias_name.lower() in [h.lower() for h in hosts]:
-                        return True
-    except Exception as e:
-        print(f"BRaaS-HPC Warning: Can't load SSH config: {e}")
-        
-    return False
 ##################################################################
 
 async def CreateJob(context, token):
@@ -339,16 +317,16 @@ def GetServer(pid):
 def GetServerFromType(cluster_type):
     # If cluster name is defined in .ssh/config, use the details from there
     if cluster_type == 'BARBORA':
-        return 'barbora' if check_ssh_alias('barbora') else 'barbora.it4i.cz'
+        return 'barbora.it4i.cz'
 
     elif cluster_type == 'KAROLINA':
-        return 'karolina' if check_ssh_alias('karolina') else 'karolina.it4i.cz'
+        return 'karolina.it4i.cz'
     
     elif cluster_type == 'LUMI':
-        return 'lumi' if check_ssh_alias('lumi') else 'lumi.csc.fi'
+        return 'lumi.csc.fi'
     
     elif cluster_type == 'LEONARDO':
-        return 'leonardo' if check_ssh_alias('leonardo') else 'login.leonardo.cineca.it'
+        return 'login.leonardo.cineca.it'
     
     elif cluster_type == 'MARENOSTRUM5GPP':
         return 'glogin2.bsc.es'
@@ -360,19 +338,19 @@ def GetServerFromType(cluster_type):
         return 'transfer2.bsc.es'
 
     elif cluster_type == 'POLARIS':
-        return 'polaris' if check_ssh_alias('polaris') else 'polaris.alcf.anl.gov'
+        return 'polaris.alcf.anl.gov'
     
     elif cluster_type == 'AURORA':
-        return 'aurora' if check_ssh_alias('aurora') else 'aurora.alcf.anl.gov'
+        return 'aurora.alcf.anl.gov'
     
     elif cluster_type == 'VISTA':
-        return 'vista' if check_ssh_alias('vista') else 'vista.tacc.utexas.edu'
+        return 'vista.tacc.utexas.edu'
     
     elif cluster_type == 'FRONTERA':
-        return 'frontera' if check_ssh_alias('frontera') else 'frontera.tacc.utexas.edu'
+        return 'frontera.tacc.utexas.edu'
     
     elif cluster_type == 'CS':
-        return 'cs' if check_ssh_alias('cs') else 'login.cs.it4i.cz'    
+        return 'login.cs.it4i.cz'    
     
 def GetSchedulerFromContext(context):
     blender_job_info_new = context.scene.raas_blender_job_info_new
