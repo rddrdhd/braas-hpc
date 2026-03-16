@@ -1672,17 +1672,19 @@ async def transfer_files(context, fileTransfer, job_local_dir: str, job_remote_d
             #await _paramiko_get(pkey, serverHostname, username, password, source, destination)
             await asyncio.to_thread(_paramiko_get, serverHostname, username, key_file, key_file_password, password, use_password, use_password_2fa, source, destination)
 
-    else:       
+    else:
+        scp_target_host = f"{username}@{serverHostname}" if username else serverHostname
+        
         if to_cluster == True:
             source = job_local_dir
-            destination = '%s:%s/%s' % (serverHostname, str(sharedBasepath), job_remote_dir)
+            destination = '%s:%s/%s' % (scp_target_host, str(sharedBasepath), job_remote_dir)
             print('copy from %s to server' % (job_local_dir))
         else:
             destination = job_local_dir
-            source = '%s:%s/%s' % (serverHostname, str(sharedBasepath), job_remote_dir)
+            source = '%s:%s/%s' % (scp_target_host, str(sharedBasepath), job_remote_dir)
             print('copy from server to: %s' % (job_local_dir))
 
-        await _scp_async(None, source, destination)
+        await _scp_async(key_file, source, destination)
             
 
 async def transfer_files_to_cluster(context, fileTransfer, job_local_dir: str, job_remote_dir: str, job_id: int, token: str) -> None:
