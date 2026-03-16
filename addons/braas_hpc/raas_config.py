@@ -360,19 +360,19 @@ def GetServerFromType(cluster_type):
         return 'transfer2.bsc.es'
 
     elif cluster_type == 'POLARIS':
-        return 'polaris' if check_ssh_alias('polaris') 'polaris.alcf.anl.gov'
+        return 'polaris' if check_ssh_alias('polaris') else 'polaris.alcf.anl.gov'
     
     elif cluster_type == 'AURORA':
-        return 'aurora' if check_ssh_alias('aurora') 'aurora.alcf.anl.gov'
+        return 'aurora' if check_ssh_alias('aurora') else 'aurora.alcf.anl.gov'
     
     elif cluster_type == 'VISTA':
-        return 'vista' if check_ssh_alias('vista') 'vista.tacc.utexas.edu'
+        return 'vista' if check_ssh_alias('vista') else 'vista.tacc.utexas.edu'
     
     elif cluster_type == 'FRONTERA':
-        return 'frontera' if check_ssh_alias('frontera') 'frontera.tacc.utexas.edu'
+        return 'frontera' if check_ssh_alias('frontera') else 'frontera.tacc.utexas.edu'
     
     elif cluster_type == 'CS':
-        return 'cs' if check_ssh_alias('cs') 'login.cs.it4i.cz'    
+        return 'cs' if check_ssh_alias('cs') else 'login.cs.it4i.cz'    
     
 def GetSchedulerFromContext(context):
     blender_job_info_new = context.scene.raas_blender_job_info_new
