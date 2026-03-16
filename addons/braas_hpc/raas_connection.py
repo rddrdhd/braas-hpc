@@ -1317,7 +1317,7 @@ async def ssh_command(server, command, preset):
     elif preset.raas_ssh_library == 'PARAMIKO':
         return _paramiko_ssh(server, username, key_file, key_file_password, password, use_password, use_password_2fa, command)
     else:
-        return await _ssh_async(None, server, None, command)
+        return await _ssh_async(key_file, server, username, command)
 
 def ssh_command_sync(server, command, preset):
     if command  is None:
@@ -1338,7 +1338,7 @@ def ssh_command_sync(server, command, preset):
     elif preset.raas_ssh_library == 'PARAMIKO':
         return _paramiko_ssh(server, username, key_file, key_file_password, password, use_password, use_password_2fa, command)
     else:
-        return _ssh_sync(None, server, None, command)
+        return _ssh_sync(key_file, server, username, command)
     
 
 async def ssh_command_jump(server1, server2, command, preset):
@@ -1360,7 +1360,7 @@ async def ssh_command_jump(server1, server2, command, preset):
     elif preset.raas_ssh_library == 'PARAMIKO':
         return _paramiko_ssh_jump(server1, server2, username, key_file, key_file_password, password, use_password, use_password_2fa, command)
     else:
-        return await _ssh_async_jump(None, server1, server2, None, command)
+        return await _ssh_async_jump(key_file, server1, server2, username, command)
 
 def ssh_command_sync_jump(server1, server2, command, preset):
     if command  is None:
@@ -1381,7 +1381,7 @@ def ssh_command_sync_jump(server1, server2, command, preset):
     elif preset.raas_ssh_library == 'PARAMIKO':
         return _paramiko_ssh_jump(server1, server2, username, key_file, key_file_password, password, use_password, use_password_2fa, command)
     else:
-        return _ssh_async_jump(None, server1, server2, None, command)
+        return _ssh_async_jump(key_file, server1, server2, username, command)
                   
 ####################################FileTransfer#############################
 
