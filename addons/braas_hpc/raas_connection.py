@@ -624,6 +624,7 @@ class RaasSession:
                 super().__init__()
                 self.password = password
                 self.totp_code = totp_code
+                self.window_size = 2147483647 # https://github.com/paramiko/paramiko/issues/175
                 
             def _auth(self, username, *args, **kwargs):
                 """Override the authentication method to handle 2FA"""        
